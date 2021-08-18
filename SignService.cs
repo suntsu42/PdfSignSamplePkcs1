@@ -55,7 +55,15 @@ namespace PdfSignSamplePkcs1
             //Load the certificate used for signing
             signCertificatePrivateKey = LoadCertificateFromFile();
 
-            //Create pkcs1 signature
+            // create sha256 message digest
+            // This is from https://kb.itextpdf.com/home/it7kb/examples/how-to-use-a-digital-signing-service-dss-such-as-globalsign-with-itext-7
+            // Not sure if this is required, but the created signature is invalid either way
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                Digest = sha256.ComputeHash(Digest);
+            }
+
+            //Create pkcs1 signature using RSA
             byte[] signature = null;
             using (var key = signCertificatePrivateKey.GetRSAPrivateKey())
             {

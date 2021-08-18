@@ -20,7 +20,7 @@ namespace PdfSignSamplePkcs1
             // Change value in order to create the PKCS7
             // either manually or via Itext
             // ############
-            bool createSignatureViaPlainPkcs1 = true;
+            bool createSignatureViaPlainPkcs1 = false;
 
             //delete signed file if it exists
             if (System.IO.File.Exists(signedPdfPath))
@@ -59,9 +59,9 @@ namespace PdfSignSamplePkcs1
             SignService ss = new SignService(pdfDigest, privateKey, privateKeyPassword);
             byte[] signatureAsPkcs7 = null;
             if (createSignatureViaPlainPkcs1)
-                signatureAsPkcs7 = ss.CreatePKCS7(); // >> Creates valid pdf signature
+                signatureAsPkcs7 = ss.CreatePKCS7ViaPkcs1(); // >> Creates invalid pdf signature
             else
-                signatureAsPkcs7 = ss.CreatePKCS7ViaPkcs1(); // Creates invalid pdf signature
+                signatureAsPkcs7 = ss.CreatePKCS7(); // Creates valid pdf signature
 
             //#3 apply cms(PKCS7) to prepared pdf
             ReadySignatureSigner extSigContainer = new ReadySignatureSigner(signatureAsPkcs7);
