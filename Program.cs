@@ -9,7 +9,8 @@ namespace PdfSignSamplePkcs1
     {
         static void Main(string[] args)
         {
-            var resourcePath = @"c:\project\PdfSigningSample\PdfSignSamplePkcs1\Resources\";
+            // TODO >> Change this path based on your local system
+            var resourcePath = @"c:\project\github\PdfSignSamplePkcs1\Resources\";
             var pdfToSignPath = Path.Combine(resourcePath, "test.pdf");
             var signedPdfPath = Path.Combine(resourcePath, "signedPdf.pdf");
             var privateKey = Path.Combine(resourcePath, "SignTest.pfx"); // not critical, self signed certificate
