@@ -8,13 +8,15 @@ I want to digitally sign pdf documents using iText 7. The signature is created b
 
 There is a good documentation for this scenario from iText: https://kb.itextpdf.com/home/it7kb/examples/how-to-use-a-digital-signing-service-dss-such-as-globalsign-with-itext-7
 
-I have created a sample application which signs pdf documents via local certificate. This sample application can be cloned from https://github.com/suntsu42/PdfSignSamplePkcs1. In this sample application are two different ways of creating the PKCS7. Once manually and once via a IExternalSignature(PrivateKeySignature) implementation. 
+# Sample application
 
-## Main application
+I have created a sample application which signs pdf documents via local certificate. This sample application can be cloned from https://github.com/suntsu42/PdfSignSamplePkcs1. In this sample application are two different ways of creating the PKCS7. Once manually and once via a IExternalSignature(PrivateKeySignature) implementation. 
 
 For both cases, the pdf digest which must be signed is created in the same way. The only difference is the way the PKCS7 is created. 
 
 The project on github (https://github.com/suntsu42/PdfSignSamplePkcs1) is complete and self contained. In the resources folder is a private key file (pfx) used for creating the signature as well as the root certificate. In order to run the example, it should be enough to just change the value of the **resourcePath** variable to accommodate your local system. 
+
+The signature creation can be toggled by changeing the value of **createSignatureViaPlainPkcs1** 
 
 ```c#
 using iText.Kernel.Pdf;
@@ -114,7 +116,7 @@ In this sample,  first create a PKCS1 signature using a local certificate. The c
 
 The pdf created in this way is invalid. 
 
-![InvalidPdf](\Resources\InvalidPdf.jpg)
+![InvalidPdf](Resources/InvalidPdf.jpg)
 
 ``` c#
         public byte[] CreatePKCS7ViaPkcs1()
@@ -152,7 +154,7 @@ In this sample, the PKCS7 is created using iText PrivateKeySignature. The signat
 
 The pdf created here is valid. But since this approach doesn't allow the use of an external service for creating the signature, i cannot use it. 
 
-![ValidPdf](\Resources\ValidPdf.jpg)
+![ValidPdf](Resources/ValidPdf.jpg)
 
 ```c#
         public byte[] CreatePKCS7ViaPkcs1()
@@ -184,3 +186,6 @@ The pdf created here is valid. But since this approach doesn't allow the use of 
         }
 ```
 
+# Question
+
+What is the reason the signature created via RSA  is invalid?
